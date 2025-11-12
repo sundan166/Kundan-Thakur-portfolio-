@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kundan M. Thakur — Portfolio</title>
+  <style>
+    :root{
+      --bg:#000;
+      --card-bg: rgba(255,255,255,0.035);
+      --glass-border: rgba(255,255,255,0.06);
+      --accent: #12b886;
+      --muted: rgba(255,255,255,0.68);
+      --glass-blur: 10px;
+      --max-width: 1100px;
+      --ease: cubic-bezier(.16,.84,.24,1);
+      --glass-tint: rgba(18,184,134,0.12); /* default greenish tint */
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(40,40,45,0.25), transparent 8%),
+                  linear-gradient(180deg, rgba(0,0,0,0.98), #000 60%);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      padding:28px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      min-height:100vh;
+    }
+    .container{ width:100%; max-width:var(--max-width); }
+    .hero{ display:grid; grid-template-columns: 320px 1fr; gap:30px; align-items:start; margin-bottom:18px; }
+    .photo-card{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+                 border:1px solid var(--glass-border); border-radius:20px; padding:18px;
+                 backdrop-filter: blur(var(--glass-blur)); position:relative; overflow:visible;
+                 transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
+    .photo-card:hover{ transform: translateY(-6px); box-shadow: 0 30px 60px rgba(2,8,12,0.65) }
+    .photo-wrap{ width:100%; aspect-ratio: 3/4; border-radius:14px; overflow:hidden; position:relative;
+                 box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.03);
+                 background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.12));
+                 transform-style:preserve-3d; perspective:900px; }
+    .photo-inner{ width:100%; height:100%; transform-origin:center; transition: transform .55s var(--ease); }
+    .photo-inner img{ width:100%; height:100%; object-fit:cover; display:block; transform-origin:center; }
+    .apple-glass { position:absolute; right:8%; top:10%; width:62%; pointer-events:none; transform: translateZ(30px);
+                  opacity:0.95; mix-blend-mode:screen; filter: drop-shadow(0 12px 30px rgba(0,0,0,0.45));
+                  animation: glassFloat 6s ease-in-out infinite; }
+    @keyframes glassFloat{ 0% { transform: translateY(0) rotateZ(-1deg) } 50% { transform: translateY(-6px) rotateZ(1deg) } 100% { transform: translateY(0) rotateZ(-1deg) } }
+    .sheen{ position:absolute; inset:0; pointer-events:none; background: linear-gradient(120deg, rgba(255,255,255,0.06), rgba(255,255,255,0.00) 30%, rgba(255,255,255,0.02) 60%, rgba(255,255,255,0.00)); mix-blend-mode:overlay; opacity:0.9; }
+    .name{ font-size:2.6rem; font-weight:900; margin-top:14px; text-align:center; letter-spacing:0.2px; line-height:1.02; color: #fff; text-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+    .typed { color: var(--accent); font-weight:800; }
+    .subline{ font-size:0.95rem; color:var(--muted); text-align:center; margin-top:8px; }
+    .details{ display:flex; flex-direction:column; gap:14px; align-self:stretch; }
+    .card{ background:var(--card-bg); border-radius:14px; padding:16px; border:1px solid var(--glass-border);
+           backdrop-filter: blur(var(--glass-blur)); transform-origin: left center; transition: transform .45s var(--ease), box-shadow .45s var(--ease); }
+    .card:hover{ transform: translateX(6px); box-shadow: 0 18px 40px rgba(0,0,0,0.5) }
+    .card h3{ margin-bottom:8px; font-size:1.05rem; letter-spacing:0.2px; }
+    .meta{ display:flex; gap:12px; flex-wrap:wrap; color:var(--muted); font-size:0.95rem; }
+    .skills{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .skill{ border:1px solid rgba(255,255,255,0.06); padding:6px 10px; border-radius:999px; font-size:0.86rem; color:var(--muted);
+            background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); transform:translateY(0); transition: transform .2s var(--ease); }
+    .skill:hover{ transform:translateY(-6px) }
+    .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .download-row{ display:flex; gap:10px; align-items:center; margin-top:8px; }
+    .btn{ display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:10px; font-weight:700; cursor:pointer; text-decoration:none;
+          border:1px solid rgba(255,255,255,0.06); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); color:#fff;
+          transition: transform .18s var(--ease), box-shadow .18s var(--ease); }
+    .btn:hover{ transform:translateY(-4px); box-shadow: 0 12px 30px rgba(2,8,12,0.6) }
+    .btn.ghost{ background:transparent; border:1px dashed rgba(255,255,255,0.04); }
+    .whatsapp{ position:fixed; right:18px; bottom:18px; z-index:999; width:62px; height:62px; border-radius:50%; display:grid; place-items:center;
+               background:linear-gradient(180deg,var(--accent), #0ea06b); box-shadow:0 18px 50px rgba(18,184,134,0.12); border:2px solid rgba(255,255,255,0.06); transition:transform .12s var(--ease); }
+    .whatsapp:hover{transform:translateY(-6px)} .whatsapp svg{width:28px;height:28px;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.35))}
+    .timeline-item{ margin-bottom:10px } .timeline-item .title{ font-weight:700 } .muted{ color:var(--muted); font-size:0.94rem }
+    footer{ margin-top:18px; color:var(--muted); font-size:0.86rem; display:flex; justify-content:center; gap:10px; align-items:center }
+    .small-note{ opacity:0.95; font-weight:600 }
+    @media (max-width:980px){ .hero{ grid-template-columns: 1fr; gap:18px } .photo-card{ display:flex; flex-direction:column; align-items:center } .photo-wrap{ width:62%; aspect-ratio:1/1 } .name{ font-size:2.05rem } .two-col{ grid-template-columns:1fr } }
+    @media (max-width:420px){ body{ padding:16px } .photo-wrap{ width:74% } .name{ font-size:1.6rem } }
+    .controls{ display:flex; gap:8px; justify-content:center; margin-top:10px; }
+    .control-btn{ padding:6px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:var(--muted); cursor:pointer; font-weight:700 }
+    .control-btn.active{ background:rgba(255,255,255,0.02); color:#fff }
+    /* Typing cursor */
+    .cursor{ display:inline-block; width:10px; background:linear-gradient(180deg,#fff,#ddd); margin-left:6px; animation: blink 1s steps(2) infinite; height:18px; vertical-align:middle; }
+    @keyframes blink{ 50%{ opacity:0 } }
+  </style>
+</head>
+<body>
+  <div class="container" style="position:relative;">
+    <section class="hero" aria-label="profile">
+      <div class="photo-card" aria-hidden="false">
+        <div class="photo-wrap" role="img" aria-label="Profile picture">
+          <div class="photo-inner">
+            <!-- Replace profile.jpg with your photo file -->
+            <img src="profile.jpg" alt="Profile photo" />
+            <div class="sheen" aria-hidden="true"></div>
+
+            <!-- Apple-style glasses overlay SVG; tint is controlled by CSS variable --glass-tint -->
+            <svg class="apple-glass" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g transform="translate(0,6)">
+                <ellipse cx="55" cy="62" rx="42" ry="26" fill="var(--glass-tint)"/>
+                <ellipse cx="145" cy="62" rx="42" ry="26" fill="var(--glass-tint)"/>
+                <path d="M97 62h6" stroke="rgba(255,255,255,0.04)" stroke-linecap="round" stroke-width="8"/>
+                <path d="M30 42c14-10 44-14 60-8" stroke="rgba(255,255,255,0.28)" stroke-width="2.8" stroke-linecap="round" fill="none" opacity="0.9"/>
+                <path d="M170 42c-14-10-44-14-60-8" stroke="rgba(255,255,255,0.12)" stroke-width="1.9" stroke-linecap="round" fill="none" opacity="0.9"/>
+                <ellipse cx="55" cy="62" rx="30" ry="18" fill="url(#g1)" opacity="0.35"/>
+                <ellipse cx="145" cy="62" rx="30" ry="18" fill="url(#g1)" opacity="0.35"/>
+              </g>
+              <defs>
+                <linearGradient id="g1" x1="0" x2="1">
+                  <stop offset="0" stop-color="white" stop-opacity="0.65" />
+                  <stop offset="0.6" stop-color="white" stop-opacity="0.12" />
+                  <stop offset="1" stop-color="white" stop-opacity="0.02" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Big name under image with typing -->
+        <div style="text-align:center;">
+          <div class="name" id="nameLarge"></div>
+          <div style="height:10px"></div>
+          <div class="subline"><span id="typedLine"></span><span class="cursor" aria-hidden="true"></span></div>
+
+          <!-- Glass color controls -->
+          <div class="controls" aria-hidden="false" style="margin-top:12px;">
+            <button class="control-btn active" data-color="rgba(18,184,134,0.12)">Green</button>
+            <button class="control-btn" data-color="rgba(66,133,244,0.10)">Blue</button>
+            <button class="control-btn" data-color="rgba(255,192,55,0.10)">Amber</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="card">
+          <h3>Contact</h3>
+          <div class="meta" role="list">
+            <div>📍 101, Jai Mata Di Apt, 90ft Road, Pragati Nagar, Nallasopara (East)</div>
+            <div>📞 <a href="tel:+917028553188" style="color:inherit;text-decoration:underline;">+91 70285 53188</a></div>
+            <div>✉️ <a href="mailto:kundanthakurmantu15@gmail.com" style="color:inherit;text-decoration:underline;">kundanthakurmantu15@gmail.com</a></div>
+          </div>
+
+          <div class="download-row">
+            <a class="btn" href="resume.pdf" download>⬇️ Download Resume</a>
+            <a class="btn ghost" href="#education">View Education</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>About / Career objective</h3>
+          <p class="muted">
+            Aim to associate with a progressive organization which offers an excellent atmosphere to prove myself by utilizing technical knowledge into practice and to grow along with the company.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <div class="card">
+            <h3>Experience</h3>
+            <div class="timeline-item">
+              <div class="title">Call Center Executive</div>
+              <div class="muted">Madhav Vacation Pvt. Ltd — Oct 2024 to Dec 2024</div>
+            </div>
+          </div>
+
+          <div class="card" id="education">
+            <h3>Education</h3>
+            <div class="timeline-item">
+              <div class="title">B.Com</div>
+              <div class="muted">Abhinav Degree College, Mumbai University — Currently Pursuing</div>
+            </div>
+            <div class="timeline-item">
+              <div class="title">HSC — 66.67%</div>
+              <div class="muted">T.V.M High School & Jr. College — 2022</div>
+            </div>
+            <div class="timeline-item">
+              <div class="title">SSC — 75.80%</div>
+              <div class="muted">T.V.M High School & Jr. College — 2020</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Skills & Interests</h3>
+          <div class="skills">
+            <div class="skill">Basic Computer</div>
+            <div class="skill">Customer Interaction</div>
+            <div class="skill">Communication</div>
+            <div class="skill">Travel Enthusiast</div>
+            <div class="skill">Reading</div>
+            <div class="skill">Listening to Music</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      <div class="small-note">Thank you for visiting</div>
+      <div style="opacity:0.6">•</div>
+      <div style="font-weight:700">Made by Sundan</div>
+    </footer>
+
+    <div style="margin-top:10px; text-align:center; color: #aaa; font-size:0.9rem;">
+      <em>Note: Add your profile photo as <strong>profile.jpg</strong> in this folder. To change the WhatsApp number, edit the link in the green button.</em>
+    </div>
+  </div>
+
+  <!-- WhatsApp floating button (opens chat) -->
+  <a class="whatsapp" id="waBtn" href="https://wa.me/917028553188" target="_blank" rel="noopener" title="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M20.52 3.48A11.9 11.9 0 0 0 12 .5C6.21.5 1.5 5.21 1.5 11c0 1.95.52 3.87 1.52 5.58L.6 23.5l6.1-1.58A12 12 0 0 0 12 23.5c5.79 0 10.5-4.71 10.5-10.5 0-1.7-.37-3.33-1.48-4.52z" stroke="#fff" stroke-width="0.2" opacity="0.07"/>
+      <path d="M17.08 14.8c-.33-.16-1.94-.96-2.24-1.07-.3-.12-.52-.16-.74.16-.22.33-.86 1.07-1.05 1.29-.19.22-.36.25-.68.08-.33-.16-1.4-.52-2.67-1.64-1-.89-1.67-1.99-1.86-2.31-.19-.33-.02-.51.15-.67.16-.16.37-.43.55-.64.18-.22.24-.37.37-.62.12-.22.06-.41-.03-.57-.09-.16-.74-1.8-1.02-2.47-.27-.64-.55-.55-.75-.56l-.64-.01c-.21 0-.56.08-.86.41-.3.33-1.15 1.12-1.15 2.73 0 1.61 1.18 3.17 1.34 3.39.16.22 2.33 3.54 5.64 4.96 3.04 1.34 3.04.9 3.59.84.55-.06 1.94-.79 2.22-1.55.28-.75.28-1.39.2-1.55-.07-.16-.29-.25-.62-.41z" fill="#fff"/>
+    </svg>
+  </a>
+
+  <script>
+    // Typing animation for name and roles
+    const fullName = "Kundan M. Thakur";
+    const roles = ["Call Center Executive", "B.Com Student", "Customer Support", "Basic Web Skills"];
+    const nameEl = document.getElementById('nameLarge');
+    const typedEl = document.getElementById('typedLine');
+
+    // Type the big name instantly with small letter spacing effect
+    nameEl.textContent = fullName;
+
+    let roleIndex = 0;
+    let charIndex = 0;
+    function typeRoles() {
+      const current = roles[roleIndex];
+      if (charIndex <= current.length) {
+        typedEl.textContent = current.slice(0, charIndex);
+        charIndex++;
+        setTimeout(typeRoles, 80);
+      } else {
+        // pause, then delete
+        setTimeout(() => { deleteRoles(); }, 900);
+      }
+    }
+    function deleteRoles() {
+      const current = roles[roleIndex];
+      if (charIndex > 0) {
+        charIndex--;
+        typedEl.textContent = current.slice(0, charIndex);
+        setTimeout(deleteRoles, 40);
+      } else {
+        roleIndex = (roleIndex + 1) % roles.length;
+        setTimeout(typeRoles, 160);
+      }
+    }
+    // start
+    setTimeout(typeRoles, 300);
+
+    // Glass color controls
+    document.querySelectorAll('.control-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.control-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const color = btn.getAttribute('data-color');
+        document.documentElement.style.setProperty('--glass-tint', color);
+      });
+    });
+
+    // Photo parallax tilt on pointer for larger screens
+    const wrap = document.querySelector('.photo-wrap');
+    if (wrap && window.matchMedia('(min-width:800px)').matches) {
+      const inner = wrap.querySelector('.photo-inner');
+      wrap.addEventListener('mousemove', (e) => {
+        const r = wrap.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        const rx = (py - 0.5) * 8; // rotateX
+        const ry = (px - 0.5) * -12; // rotateY
+        inner.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+      });
+      wrap.addEventListener('mouseleave', () => { inner.style.transform = ''; });
+    }
+  </script>
+</body>
+</html>
